@@ -1,0 +1,100 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Scanner;
+
+// ✅ 1. สร้าง Interface สำหรับระบบ KeyCard
+interface KeyCardSystem {
+    void createUser();     // ฟังก์ชันสร้างผู้ใช้
+    void verifyUser();     // ฟังก์ชันตรวจสอบผู้ใช้
+    void logHistory(String userId, boolean success); // ฟังก์ชันบันทึกประวัติ
+}
+
+// ✅ 2. สร้างคลาสที่ implements Interface
+class KeyCardSystemImpl implements KeyCardSystem {
+    private static HashMap<String, String> userDatabase = new HashMap<>();
+    private static Random random = new Random();
+    private static final String HISTORY_FILE = "access_history.txt";
+    
+    @Override
+    public void createUser() {
+        String userId = generateId();
+        String pin = generatePin();
+        userDatabase.put(userId, pin);
+        System.out.println("สร้างสำเร็จ! ID: " + userId + " | PIN: " + pin);
+    }
+
+    @Override
+    public void verifyUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("ป้อน ID: ");
+        String userId = scanner.nextLine();
+        System.out.print("ป้อน PIN: ");
+        String pin = scanner.nextLine();
+
+        if (userDatabase.containsKey(userId) && userDatabase.get(userId).equals(pin)) {
+            System.out.println("✅ ยืนยันตัวตนสำเร็จ");
+            logHistory(userId, true);
+        } else {
+            System.out.println("❌ ID หรือ PIN ไม่ถูกต้อง");
+            logHistory(userId, false);
+        }
+    }
+
+    @Override
+    public void logHistory(String userId, boolean success) {
+        String status = success ? "✅ สำเร็จ" : "❌ ล้มเหลว";
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String log = timestamp + " | ID: " + userId + " | สถานะ: " + status;
+
+        try (FileWriter writer = new FileWriter(HISTORY_FILE, true)) {
+            writer.write(log + "\n");
+        } catch (IOException e) {
+            System.out.println("❌ เกิดข้อผิดพลาดในการบันทึกข้อมูล: " + e.getMessage());
+        }
+    }
+
+    // ฟังก์ชันสร้าง ID (6 หลัก)
+    private String generateId() {
+        return String.format("%06d", random.nextInt(1000000));
+    }
+
+    // ฟังก์ชันสร้าง PIN (4 หลัก)
+    private String generatePin() {
+        return String.format("%04d", random.nextInt(10000));
+    }
+}
+
+// ✅ 3. เรียกใช้งานผ่าน Interface
+public class KeyCardApp {
+    public static void main(String[] args) {
+        KeyCardSystem system = new KeyCardSystemImpl();  // ใช้งานผ่าน Interface
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1. สร้าง ID และ PIN");
+            System.out.println("2. ตรวจสอบ ID และ PIN");
+            System.out.println("3. ออกจากระบบ");
+            System.out.print("เลือกเมนู: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Clear buffer
+
+            switch (choice) {
+                case 1:
+                    system.createUser(); // เรียกฟังก์ชันจาก Interface
+                    break;
+                case 2:
+                    system.verifyUser();
+                    break;
+                case 3:
+                    System.out.println("ออกจากระบบ...");
+                    return;
+                default:
+                    System.out.println("เลือกไม่ถูกต้อง กรุณาลองใหม่");
+            }
+        }
+    }
+}
