@@ -1,0 +1,57 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+
+public class HotelSystemSwing {
+
+    // ... (โค้ดส่วนอื่นๆ เหมือนเดิม)
+
+    public void createAndShowGUI() {
+        // ... (โค้ดส่วนอื่นๆ เหมือนเดิม)
+
+        // สร้าง JPanel สำหรับส่วน Function
+        JPanel functionPanel = new JPanel(new GridLayout(4, 2)); // 4 แถว 2 คอลัมน์
+        functionPanel.setBorder(BorderFactory.createTitledBorder("Function")); // เพิ่ม Border และ Title
+
+        // เพิ่ม Label และ JTextField ให้กับ functionPanel
+        functionPanel.add(new JLabel("KeyCard ID:"));
+        JTextField keyCardIdField = new JTextField();
+        functionPanel.add(keyCardIdField);
+
+        functionPanel.add(new JLabel("Room Number:"));
+        JTextField roomNumberField = new JTextField();
+        functionPanel.add(roomNumberField);
+
+        functionPanel.add(new JLabel("Guest Name:"));
+        JTextField guestNameField = new JTextField();
+        functionPanel.add(guestNameField);
+
+        functionPanel.add(new JLabel("Expiry Date (YYYY-MM-DD):"));
+        JTextField expiryDateField = new JTextField();
+        functionPanel.add(expiryDateField);
+
+        // สร้าง JPanel สำหรับส่วน Functional Result
+        JPanel resultPanel = new JPanel(new BorderLayout());
+        resultPanel.setBorder(BorderFactory.createTitledBorder("Functional Result")); // เพิ่ม Border และ Title
+
+        // เพิ่ม JTextArea สำหรับแสดงผลลัพธ์
+        JTextArea outputArea = new JTextArea();
+        outputArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(outputArea);
+        resultPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // สร้าง JPanel สำหรับปุ่มต่างๆ
+        JPanel buttonPanel = new JPanel(new FlowLayout()); // จัดเรียงปุ่มตามแนวนอน
+        buttonPanel.add(createButton);
+        buttonPanel.add(showButton);
+        buttonPanel.add(openButton);
+
+        // นำ JPanel ทั้งหมดมาวางใน JFrame
+        frame.add(functionPanel, BorderLayout.NORTH); // วาง functionPanel ไว้ด้านบน
+        frame.add(resultPanel, BorderLayout.CENTER); // วาง resultPanel ไว้ตรงกลาง
+        frame.add(buttonPanel, BorderLayout.SOUTH); // วาง buttonPanel ไว้ด้านล่าง
+
+    }
+}
