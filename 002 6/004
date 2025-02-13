@@ -1,0 +1,165 @@
+//    // ... (KeyCard and HotelSystem inner classes remain the same)
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.util.HashMap;
+//
+//public class HotelSystem {
+//
+//    private HotelSystem hotelSystem = new HotelSystem();
+//
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new HotelSystem().createAndShowGUI());
+//    }
+//
+//    public void createAndShowGUI() {
+//        JFrame frame = new JFrame("Hotel KeyCard System");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 400);
+//
+//        JPanel panel = new JPanel();
+//        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+//        frame.add(panel);
+//
+//        // Labels and Fields
+//        JTextField keyCardIdField = new JTextField();
+//        keyCardIdField.setColumns(20);
+//        keyCardIdField.setToolTipText("Enter KeyCard ID");
+//
+//        JTextField roomNumberField = new JTextField();
+//        roomNumberField.setColumns(20);
+//        roomNumberField.setToolTipText("Enter Room Number");
+//
+//        JTextField guestNameField = new JTextField();
+//        guestNameField.setColumns(20);
+//        guestNameField.setToolTipText("Enter Guest Name");
+//
+//        JTextField expiryDateField = new JTextField();
+//        expiryDateField.setColumns(20);
+//        expiryDateField.setToolTipText("Enter Expiry Date (YYYY-MM-DD)");
+//
+//        JTextArea outputArea = new JTextArea();
+//        outputArea.setEditable(false);
+//        outputArea.setRows(5);
+//        outputArea.setColumns(20);
+//        JScrollPane scrollPane = new JScrollPane(outputArea);
+//
+//        // Buttons
+//        JButton createButton = new JButton("Create New KeyCard");
+//        JButton showButton = new JButton("Show All KeyCards");
+//        JButton openButton = new JButton("Open Door with KeyCard");
+//
+//        // Button actions
+//        createButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String keyCardId = keyCardIdField.getText();
+//                String roomNumber = roomNumberField.getText();
+//                String guestName = guestNameField.getText();
+//                String expiryDate = expiryDateField.getText();
+//
+//                if (!keyCardId.isEmpty() && !roomNumber.isEmpty() && !guestName.isEmpty() && !expiryDate.isEmpty()) {
+//                    hotelSystem.generateNewKeyCard(keyCardId, roomNumber, guestName, expiryDate);
+//                    outputArea.setText("New KeyCard created successfully.");
+//                } else {
+//                    outputArea.setText("Please fill in all fields.");
+//                }
+//            }
+//        });
+//
+//        showButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String allKeyCards = hotelSystem.getAllKeyCards();
+//                outputArea.setText(allKeyCards);
+//            }
+//        });
+//
+//        openButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String keyCardId = keyCardIdField.getText();
+//                if (hotelSystem.openDoor(keyCardId)) {
+//                    outputArea.setText("Door opened for room.");
+//                } else {
+//                    outputArea.setText("Invalid keycard.");
+//                }
+//            }
+//        });
+//
+//        // Add components to panel
+//        panel.add(keyCardIdField);
+//        panel.add(roomNumberField);
+//        panel.add(guestNameField);
+//        panel.add(expiryDateField);
+//        panel.add(createButton);
+//        panel.add(showButton);
+//        panel.add(openButton);
+//        panel.add(scrollPane);
+//
+//        // Make the frame visible
+//        frame.setVisible(true);
+//    }
+//
+//    // KeyCard class as an inner class
+//    class KeyCard {
+//        private String keyCardId;
+//        private String roomNumber;
+//        private String guestName;
+//        private String expiryDate;
+//
+//        public KeyCard(String keyCardId, String roomNumber, String guestName, String expiryDate) {
+//            this.keyCardId = keyCardId;
+//            this.roomNumber = roomNumber;
+//            this.guestName = guestName;
+//            this.expiryDate = expiryDate;
+//        }
+//
+//        public String getKeyCardId() {
+//            return keyCardId;
+//        }
+//
+//        public String getRoomNumber() {
+//            return roomNumber;
+//        }
+//
+//        public String getGuestName() {
+//            return guestName;
+//        }
+//
+//        public String getExpiryDate() {
+//            return expiryDate;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "KeyCard ID: " + keyCardId + ", Room: " + roomNumber + ", Guest: " + guestName + ", Expiry: " + expiryDate;
+//        }
+//    }
+//
+//    // HotelSystem class as an inner class
+//    class HotelSystem {
+//        private HashMap<String, KeyCard> keyCards = new HashMap<>();
+//
+//        public KeyCard generateNewKeyCard(String keyCardId, String roomNumber, String guestName, String expiryDate) {
+//            KeyCard newKeyCard = new KeyCard(keyCardId, roomNumber, guestName, expiryDate);
+//            keyCards.put(keyCardId, newKeyCard);
+//            return newKeyCard;
+//        }
+//
+//        public boolean openDoor(String keyCardId) {
+//            return keyCards.containsKey(keyCardId);
+//        }
+//
+//        public String getAllKeyCards() {
+//            if (keyCards.isEmpty()) {
+//                return "No keycards created.";
+//            } else {
+//                StringBuilder allCards = new StringBuilder();
+//                keyCards.forEach((id, card) -> allCards.append(card).append("\n"));
+//                return allCards.toString();
+//            }
+//        }
+//    }
+//}
