@@ -1,0 +1,193 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class FunctionHistoryUI extends JFrame {
+
+    class Room {
+        private String roomNumber;
+        private boolean isOccupied;
+
+        public Room(String roomNumber) {
+            this.roomNumber = roomNumber;
+            this.isOccupied = false;
+        }
+
+        public String getRoomNumber() {
+            return roomNumber;
+        }
+
+        public boolean isOccupied() {
+            return isOccupied;
+        }
+
+        public void setOccupied(boolean occupied) {
+            isOccupied = occupied;
+        }
+    }
+
+    class KeyCard {
+        private String keyCardID;
+        private Room assignedRoom;
+
+        public KeyCard(String keyCardID, Room assignedRoom) {
+            this.keyCardID = keyCardID;
+            this.assignedRoom = assignedRoom;
+        }
+
+        public String getKeyCardID() {
+            return keyCardID;
+        }
+
+        public Room getAssignedRoom() {
+            return assignedRoom;
+        }
+    }
+
+    private JTextArea processArea, resultArea, functionHistoryArea, resultHistoryArea;
+    private Map<String, Room> rooms = new HashMap<>();
+    private Map<String, KeyCard> keyCards = new HashMap<>();
+
+    public FunctionHistoryUI() {
+        setTitle("Function History");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLayout(new BorderLayout());
+
+        // สร้างแผงสำหรับ Function Buttons
+        JPanel functionPanel = new JPanel(new GridLayout(0, 1));
+        String[] functionNames = {"Create Keys-Card ID", "Check for working", "Show Keys-Card", "History check in-out", "View Room Status", "Generate Report"};
+        for (String name : functionNames) {
+            JButton button = new JButton(name);
+            button.addActionListener(e -> handleButtonAction(e.getActionCommand()));
+            functionPanel.add(button);
+        }
+
+        // สร้างแผงสำหรับ Functional Processing และ Result
+        JPanel processResultPanel = new JPanel(new GridLayout(1, 2));
+
+        processArea = new JTextArea();
+        JScrollPane processScrollPane = new JScrollPane(processArea);
+        resultArea = new JTextArea();
+        JScrollPane resultScrollPane = new JScrollPane(resultArea);
+
+        processResultPanel.add(createPanelWithLabel(new JLabel("Functional Processing"), processScrollPane));
+        processResultPanel.add(createPanelWithLabel(new JLabel("Functional Result"), resultScrollPane));
+
+        // สร้างแผงสำหรับ History
+        JPanel historyPanel = new JPanel(new GridLayout(1, 2));
+
+        functionHistoryArea = new JTextArea();
+        JScrollPane functionHistoryScrollPane = new JScrollPane(functionHistoryArea);
+        resultHistoryArea = new JTextArea();
+        JScrollPane resultHistoryScrollPane = new JScrollPane(resultHistoryArea);
+
+        historyPanel.add(createPanelWithLabel(new JLabel("History of Function"), functionHistoryScrollPane));
+        historyPanel.add(createPanelWithLabel(new JLabel("History of Result"), resultHistoryScrollPane));
+
+        // เพิ่มทุกอย่างลงใน JFrame
+        add(functionPanel, BorderLayout.WEST);
+        add(processResultPanel, BorderLayout.CENTER);
+        add(historyPanel, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    // ฟังก์ชันช่วยในการสร้างแผงที่มี Label และ ScrollPane
+    private JPanel createPanelWithLabel(JLabel label, JScrollPane scrollPane) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        return panel;
+    }
+
+    // ฟังก์ชันเพื่อจัดการปุ่มกด
+    private void handleButtonAction(String actionCommand) {
+        switch (actionCommand) {
+            case "Create Keys-Card ID":
+                createKeyCard();
+                break;
+            case "Check for working":
+                checkRoomStatus();
+                break;
+            case "Show Keys-Card":
+                showKeyCard();
+                break;
+            case "History check in-out":
+                checkHistory();
+                break;
+            case "View Room Status":
+                viewRoomStatus();
+                break;
+            case "Generate Report":
+                generateReport();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void createKeyCard() {
+        String roomNumber = JOptionPane.showInputDialog(this, "Enter Room Number:");
+        if (roomNumber != null && !roomNumber.isEmpty()) { // ตรวจสอบว่าผู้ใช้ป้อนข้อมูลหรือไม่
+            String keyCardID = "KEY-" + roomNumber;
+            Room room = rooms.getOrDefault(roomNumber, new Room(roomNumber));
+            KeyCard keyCard = new KeyCard(keyCardID, room);
+            keyCards.put(keyCardID, keyCard);
+            rooms.put(roomNumber, room);
+            processArea.append("Created Key-Card ID: " + keyCardID + " for Room " + roomNumber + "\n");
+        } else {
+            processArea.append("Room number cannot be empty.\n");
+        }
+    }
+
+
+    private void checkRoomStatus() {
+        String roomNumber = JOptionPane.showInputDialog(this, "Enter Room Number:");
+        if (roomNumber != null && !roomNumber.isEmpty()) {
+            Room room = rooms.get(roomNumber);
+            if (room != null) {
+                resultArea.append("Room " + roomNumber + " is " + (room.isOccupied() ? "Occupied" : "Available") + "\n");
+            } else {
+                resultArea.append("Room " + roomNumber + " not found.\n");
+            }
+        } else {
+            resultArea.append("Room number cannot be empty.\n");
+        }
+    }
+
+    private void showKeyCard() {
+        String keyCardID = JOptionPane.showInputDialog(this, "Enter Key-Card ID:");
+        if (keyCardID != null && !keyCardID.isEmpty()) {
+            KeyCard keyCard = keyCards.get(keyCardID);
+            if (keyCard != null) {
+                resultArea.append("Key-Card ID: " + keyCardID + " is assigned to Room " + keyCard.getAssignedRoom().getRoomNumber() + "\n");
+            } else {
+                resultArea.append("Key-Card " + keyCardID + " not found.\n");
+            }
+        } else {
+            resultArea.append("Key card ID cannot be empty.\n");
+        }
+    }
+
+    private void checkHistory() {
+        functionHistoryArea.append("Checked History for In-Out operations.\n");
+    }
+
+    private void viewRoomStatus() {
+        StringBuilder status = new StringBuilder();
+        for (Room room : rooms.values()) {
+            status.append("Room ").append(room.getRoomNumber()).append(": ").append(room.isOccupied() ? "Occupied" : "Available").append("\n");
+        }
+        resultHistoryArea.setText(status.toString());
+    }
+
+    private void generateReport() {
+        resultArea.append("Generating Report...\n");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new FunctionHistoryUI());
+    }
+}
