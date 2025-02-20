@@ -1,0 +1,71 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class FunctionHistoryUI extends JFrame {
+
+    public FunctionHistoryUI() {
+        setTitle("Function History");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLayout(new BorderLayout());
+
+        // สร้างแผงสำหรับ Function Buttons
+        JPanel functionPanel = new JPanel(new GridLayout(0, 1)); // ใช้ GridLayout วางแนวตั้ง
+        String[] functionNames = {"Create Keys-Card ID ", " Check for working "," Show Keys-Card "," History check in-out ",  " View Room Status ", " Generate Report "};
+        for (String name : functionNames) {
+            JButton button = new JButton(name);
+            functionPanel.add(button);
+        }
+
+        // สร้างแผงสำหรับ Functional Processing และ Result
+        JPanel processResultPanel = new JPanel(new GridLayout(1, 2)); // ใช้ GridLayout วางแนวนอน
+
+        // สร้าง Label และพื้นที่สำหรับ Functional Processing
+        JLabel processLabel = new JLabel("Functional Processing");
+        JTextArea processArea = new JTextArea();
+        JScrollPane processScrollPane = new JScrollPane(processArea); // เพิ่ม ScrollPane
+
+        // สร้าง Label และพื้นที่สำหรับ Functional Result
+        JLabel resultLabel = new JLabel("Functional Result");
+        JTextArea resultArea = new JTextArea();
+        JScrollPane resultScrollPane = new JScrollPane(resultArea); // เพิ่ม ScrollPane
+
+        processResultPanel.add(createPanelWithLabel(processLabel, processScrollPane));
+        processResultPanel.add(createPanelWithLabel(resultLabel, resultScrollPane));
+
+        // สร้างแผงสำหรับ History
+        JPanel historyPanel = new JPanel(new GridLayout(1, 2));
+
+        // สร้าง Label และพื้นที่สำหรับ History of Function
+        JLabel functionHistoryLabel = new JLabel("History of Function");
+        JTextArea functionHistoryArea = new JTextArea();
+        JScrollPane functionHistoryScrollPane = new JScrollPane(functionHistoryArea);
+
+        // สร้าง Label และพื้นที่สำหรับ History of Result
+        JLabel resultHistoryLabel = new JLabel("History of Result");
+        JTextArea resultHistoryArea = new JTextArea();
+        JScrollPane resultHistoryScrollPane = new JScrollPane(resultHistoryArea);
+
+        historyPanel.add(createPanelWithLabel(functionHistoryLabel, functionHistoryScrollPane));
+        historyPanel.add(createPanelWithLabel(resultHistoryLabel, resultHistoryScrollPane));
+
+        // เพิ่มทุกอย่างลงใน JFrame
+        add(functionPanel, BorderLayout.WEST);
+        add(processResultPanel, BorderLayout.CENTER);
+        add(historyPanel, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    // ฟังก์ชัน helper สำหรับสร้างแผงที่มี Label และ ScrollPane
+    private JPanel createPanelWithLabel(JLabel label, JScrollPane scrollPane) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        return panel;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new FunctionHistoryUI());
+    }
+}
