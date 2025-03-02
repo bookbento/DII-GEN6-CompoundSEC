@@ -1,0 +1,55 @@
+2025-03-01 21:12:18 - Room 102 checked in.
+2025-03-01 21:12:23 - Room 104 checked in.
+2025-03-01 21:12:25 - Room 104 checked out.
+2025-03-01 21:12:27 - Room 105 checked in.
+2025-03-01 21:12:28 - Room 105 checked out.
+2025-03-01 21:12:30 - Room 106 checked in.
+2025-03-01 21:12:32 - Room 107 checked in.
+2025-03-01 21:12:32 - Room 107 checked out.
+2025-03-01 21:12:49 - Room 102 checked in.
+2025-03-01 21:12:49 - Room 102 checked out.
+2025-03-01 21:12:53 - Room 101 checked in.
+2025-03-01 21:12:53 - Room 101 checked out.
+2025-03-01 21:17:57 - Room 101 checked in.
+2025-03-01 21:18:04 - Room 102 checked in.
+2025-03-01 21:18:13 - Room 104 checked in.
+2025-03-01 21:18:16 - Room 102 checked in.
+2025-03-01 21:18:19 - Room 102 checked out.
+2025-03-01 21:18:20 - Room 102 checked in.
+2025-03-01 21:20:03 - Keycard 444 assigned to Room 111
+2025-03-01 21:22:17 - Room 101 checked in.
+2025-03-01 21:22:18 - Room 101 checked in.
+2025-03-01 21:22:18 - Room 101 checked in.
+2025-03-01 21:22:18 - Room 101 checked in.
+2025-03-01 21:22:18 - Room 101 checked in.
+2025-03-01 21:22:18 - Room 101 checked in.
+2025-03-01 21:22:19 - Room 101 checked in.
+2025-03-01 21:22:19 - Room 101 checked in.
+2025-03-01 21:22:19 - Room 101 checked in.
+2025-03-01 21:22:19 - Room 101 checked out.
+2025-03-01 21:22:20 - Room 101 checked out.
+2025-03-01 21:22:20 - Room 101 checked out.
+2025-03-01 21:22:20 - Room 101 checked out.
+2025-03-01 21:22:20 - Room 101 checked out.
+2025-03-01 21:22:20 - Room 101 checked out.
+2025-03-01 21:22:20 - Room 101 checked out.
+2025-03-01 21:22:21 - Room 101 checked out.
+2025-03-01 21:25:32 - Room 104 checked in.
+2025-03-01 21:25:36 - Room 102 checked in.
+2025-03-01 21:25:40 - Room 102 checked in.
+2025-03-01 21:25:40 - Room 102 checked in.
+2025-03-01 21:25:40 - Room 102 checked in.
+2025-03-01 21:25:41 - Room 102 checked in.
+2025-03-01 21:25:41 - Room 102 checked out.
+2025-03-01 21:29:50 - ✅ Room 101 checked in.
+2025-03-01 21:29:51 - ⚠️ Room 101 is already occupied! Please check out first.
+2025-03-01 21:29:54 - ⚠️ Room 101 is already occupied! Please check out first.
+2025-03-01 21:29:54 - ⚠️ Room 101 is already occupied! Please check out first.
+2025-03-01 21:29:55 - Room 101 checked out.
+2025-03-01 21:30:27 - ✅ Room 101 checked in.
+2025-03-01 21:30:31 - ⚠️ Room 101 is already occupied! Please check out first.
+2025-03-01 21:30:37 - Room 101 checked out.
+2025-03-01 21:30:40 - Room 101 checked out.
+2025-03-01 21:45:16 - ✅ Room 101 checked in.
+2025-03-01 21:46:59 - Keycard 101 assigned to Room 101
+2025-03-01 21:47:07 - ✅ Room 103 checked in.
